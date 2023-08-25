@@ -1,10 +1,4 @@
-package Interfaz;
-
-/**
- *
- * @author Jonathan
- */
-class Timesort {
+public class Timesort {
 
     private static int MIN_MERGE = 32;
     private static boolean ascendente ;
@@ -94,33 +88,11 @@ class Timesort {
     {
         int minRun = minRunLength(MIN_MERGE);
 
-<<<<<<< HEAD
         // Sort individual subarrays of size RUN
         for (int i = 0; i < n; i += minRun) {
             insertionSort(
                     arr, i,
                     Math.min((i + MIN_MERGE - 1), (n - 1)));
-=======
-    while (j < rightSize) {
-        arr[k] = rightArr[j];
-        j++;
-        k++;
-    }
-}
-
-
-    public static void main(String[] args) {
-        List<Integer> inputList = generateRandomList(10000000); 
-        List<Integer> sortedListAsc = timsort(inputList, true);
-        List<Integer> sortedListDesc = timsort(inputList, false);
-        // Now you can use the sorted lists as needed
-    }
-
-    private static List<Integer> generateRandomList(int size) {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            list.add((int) (Math.random() * 1000000)); 
->>>>>>> f0b43339c462123a88f6f054b82839f0b3cbc6ad
         }
 
         // Start merging from size
@@ -171,7 +143,7 @@ class Timesort {
     }
 
     // Driver code
-    public static void timesort(int[] arr, boolean asc){
+public static int[] timesort(int[] arr, boolean asc){
         ascendente=asc;
         int n = arr.length;
         System.out.println("Given Array is");
@@ -181,5 +153,6 @@ class Timesort {
 
         System.out.println("After Sorting Array is");
         printArray(arr, n);
+        return arr;
     }
 }
