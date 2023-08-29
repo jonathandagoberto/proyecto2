@@ -10,37 +10,43 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import TimSort.Timesort;
 
 public class Frame extends JFrame {
 
-    final private Font mainfFont = new Font("Arial", Font.BOLD, 18);
-    int al[] = new int[5];
+    final private Font mainFont = new Font("Arial", Font.BOLD, 18);
+    int[] al = new int[5];
     static String Archivo;
+
+    public Frame() {
+        inicializar();
+    }
 
     public void inicializar() {
         JLabel lbSeleccionarArchivo = new JLabel("Seleccione el archivo");
-        lbSeleccionarArchivo.setFont(mainfFont);
-        JLabel lbSeleccionarmetodo = new JLabel("Seleccionar Metodo");
-        lbSeleccionarmetodo.setFont(mainfFont);
+        lbSeleccionarArchivo.setFont(mainFont);
+        JLabel lbSeleccionarMetodo = new JLabel("Seleccionar Método");
+        lbSeleccionarMetodo.setFont(mainFont);
         JButton importButton = new JButton("Importar Archivo");
-        importButton.setFont(mainfFont);
+        importButton.setFont(mainFont);
         String[] items = { " Ascendente", " Descendente" };
         JComboBox<String> comboBox = new JComboBox<>(items);
-        comboBox.setFont(mainfFont);
-        JLabel lbSeleccionarAlgoritmo = new JLabel("Seleccionar algoritmo");
-        lbSeleccionarAlgoritmo.setFont(mainfFont);
+        comboBox.setFont(mainFont);
+        JLabel lbSeleccionarAlgoritmo = new JLabel("Seleccionar Algoritmo");
+        lbSeleccionarAlgoritmo.setFont(mainFont);
         String[] items2 = { " Quick Sort", " Merge Sort", " TimSort" };
         JComboBox<String> comboBox2 = new JComboBox<>(items2);
-        comboBox2.setFont(mainfFont);
+        comboBox2.setFont(mainFont);
         JButton importButton3 = new JButton("Ordenar Archivo");
-        importButton3.setFont(mainfFont);
+        importButton3.setFont(mainFont);
         JButton importButton2 = new JButton("Guardar Archivo");
-        importButton2.setFont(mainfFont);
+        importButton2.setFont(mainFont);
+
         JPanel formPanel = new JPanel();
-        formPanel.setLayout(new GridLayout(4, 1, 5, 5));
+        formPanel.setLayout(new GridLayout(4, 2, 5, 5));
         formPanel.add(lbSeleccionarArchivo);
         formPanel.add(importButton);
-        formPanel.add(lbSeleccionarmetodo);
+        formPanel.add(lbSeleccionarMetodo);
         formPanel.add(comboBox);
         formPanel.add(lbSeleccionarAlgoritmo);
         formPanel.add(comboBox2);
@@ -68,11 +74,10 @@ public class Frame extends JFrame {
                     File selectedFile = fileChooser.getSelectedFile();
                     System.out.println("Archivo seleccionado: " + selectedFile.getAbsolutePath());
                     Archivo = selectedFile.getAbsolutePath();
-
                 }
-                throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
             }
         });
+
         importButton3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -84,14 +89,18 @@ public class Frame extends JFrame {
                         qsA.quicksort(al, 0, al.length - 1);
                         Imprimir imp = new Imprimir();
                         imp.imprimir(al);
-
                     }
                     if (comboBox2.getSelectedItem().toString().equals(" Merge Sort")) {
                         Merge mrg = new Merge();
                         mrg.mergeSort(al);
                         Imprimir imp = new Imprimir();
                         imp.imprimir(al);
-
+                    }
+                    if (comboBox2.getSelectedItem().toString().equals(" TimSort")) {
+                        boolean ascendente = comboBox.getSelectedItem().toString().equals(" Ascendente");
+                        int[] sortedArray = Timesort.timesort(al.clone(), ascendente);
+                        Imprimir imp = new Imprimir();
+                        imp.imprimir(sortedArray);
                     }
                 } else if (comboBox.getSelectedItem().toString().equals(" Descendente")) {
                     if (comboBox2.getSelectedItem().toString().equals(" Quick Sort")) {
@@ -102,6 +111,14 @@ public class Frame extends JFrame {
                     }
                 }
                 JOptionPane.showMessageDialog(null, comboBox2.getSelectedItem().toString());
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Frame();
             }
         });
     }
